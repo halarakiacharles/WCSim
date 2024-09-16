@@ -2309,7 +2309,7 @@ void WCSimEventAction::FillFlatTree(G4int event_id,
 	thisNtuple->start_x[thisNtuple->nTracks] = Start[0]/CLHEP::cm;
 	thisNtuple->start_y[thisNtuple->nTracks] = Start[1]/CLHEP::cm;
 	thisNtuple->start_z[thisNtuple->nTracks] = Start[2]/CLHEP::cm;
-	thisNtuple->startvol[thisNtuple->nTracks]= WCSimEventFindStartingVolume(Start);
+	thisNtuple->startvol[thisNtuple->nTracks]= -999; //WCSimEventFindStartingVolume(Start);
 	//G4String startVolumeName;
 	G4ThreeVector Stop                       = trj->GetStoppingPoint();
 	thisNtuple->stop_x[thisNtuple->nTracks]  = Stop[0]/CLHEP::cm;

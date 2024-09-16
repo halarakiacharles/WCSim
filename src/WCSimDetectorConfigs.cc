@@ -451,7 +451,7 @@ void WCSimDetectorConstruction::SetHyperKWithODGeometry()
 void WCSimDetectorConstruction::SetHyperKGeometry_20perCent()
 {
   WCDetectorName = "HyperK_20perCent";
-  HKGeometryNoLongerUsed(WCDetectorName);
+  //  HKGeometryNoLongerUsed(WCDetectorName);
   WCIDCollectionName = WCDetectorName +"-glassFaceWCPMT";
   WCSimPMTObject * PMT = CreatePMTObject("BoxandLine20inchHQE", WCIDCollectionName);
   WCPMTName           = PMT->GetPMTName();

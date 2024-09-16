@@ -35,7 +35,7 @@ void WCSimDetectorConstruction::ConstructMaterials()
   G4double pressure    = 1.e-19*pascal;
   G4double temperature = 0.1*kelvin;
   a = 1.01*g/mole;
-  //G4Material* Vacuum =
+  G4Material* Vacuum =
     new G4Material("Vacuum", 1., a, density,
 		   kStateGas,temperature,pressure);
 
@@ -331,6 +331,10 @@ void WCSimDetectorConstruction::ConstructMaterials()
   Rock->AddElement(elK,   4.50*perCent);
   Rock->AddElement(elMg,  0.10*perCent);
 
+
+   // G4MaterialPropertiesTable *rocks = new G4MaterialPropertiesTable();
+   // rocks->AddProperty("RINDEX", ENERGY_water, RINDEX_rock, NUMENTRIES_water);
+   // Rock->SetMaterialPropertiesTable(rocks);
 
 
   // Potential alternative material definitions for HK
@@ -1410,6 +1414,12 @@ void WCSimDetectorConstruction::ConstructMaterials()
      { 0.2, 0.2 };
    G4double BACKSCATTERCONSTANT[NUM] =
      { 0.2, 0.2 };
+G4double RINDEX_vacuum[NUM] = 
+  {1.0,1.0}; //  {1.5,1.5};
+
+
+G4double RINDEX_rock[NUM] = 
+  {3.46, 3.46}; //  {1.5,1.5};
 
    OpGlassCathodeSurface =
      new G4OpticalSurface("GlassCathodeSurface");
@@ -1639,7 +1649,17 @@ void WCSimDetectorConstruction::ConstructMaterials()
    
    Air->SetMaterialPropertiesTable(myMPT2);
    poron->SetMaterialPropertiesTable(myMPT2); // just kill all photons inside
+   //   Rock->SetMaterialPropertiesTable(myMPT2);
    absorberMaterial->SetMaterialPropertiesTable(myMPT2);
+
+   G4MaterialPropertiesTable *rocks = new G4MaterialPropertiesTable();
+   rocks->AddProperty("RINDEX", ENERGY_water, RINDEX_rock, NUMENTRIES_water);
+   Rock->SetMaterialPropertiesTable(rocks);
+
+   G4MaterialPropertiesTable *vacuums = new G4MaterialPropertiesTable();
+   vacuums->AddProperty("RINDEX", ENERGY_water, RINDEX_vacuum, NUMENTRIES_water);
+   Vacuum->SetMaterialPropertiesTable(vacuums);
+
 
    // No ABSLENGTH here in order to have actual photon propagation
    G4MaterialPropertiesTable *myMPT2_Air1 = new G4MaterialPropertiesTable();

@@ -39,7 +39,7 @@ void WCSimSteppingAction::UserSteppingAction(const G4Step* aStep)
       return;
   //DISTORTION must be used ONLY if INNERTUBE or INNERTUBEBIG has been defined in BidoneDetectorConstruction.cc
   
-  const G4Track* track       = aStep->GetTrack();
+ G4Track* track       = aStep->GetTrack();
   
   // Not used:
   //const G4Event* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
@@ -113,6 +113,12 @@ void WCSimSteppingAction::UserSteppingAction(const G4Step* aStep)
 	  " (transition from " << thePrePV->GetName() << " to " << thePostPV->GetName() << ")" <<
 	  " : could also be caused by Overlaps with volumes with logicalBoundaries." << G4endl;
 	
+      }
+      const G4TrackStatus trackKiller = fStopAndKill;
+      if(track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition()){
+	if(thePostPoint->GetMaterial()->GetName() == "Rock"){
+	  track->SetTrackStatus(trackKiller);
+	}
       }
       /* Debug :  
       if( (thePrePV->GetName().find("PMT") != std::string::npos) ||

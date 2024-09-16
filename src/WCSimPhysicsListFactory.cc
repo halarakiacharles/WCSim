@@ -9,7 +9,7 @@
 #include <G4HadronicInteractionRegistry.hh>
 #include <G4RadioactiveDecayPhysics.hh>
 #include "WCSimPhysicsListFactory.hh"
-
+#include <G4EmStandardPhysics.hh>
 #include "GdNeutronHPCapture.hh"
 
 #include "G4PhysicalConstants.hh"
@@ -105,6 +105,11 @@ void WCSimPhysicsListFactory::ConstructProcess() {
         G4cout << "Enabling RadCapture nCapture process" << G4endl;
         theCaptureProcess->RegisterMe(theNeutronRadCapture);
     } 
+
+    // G4VPhysicsConstructor* emList = new G4EmStandardPhsyics();
+    // emList->ConstructProcess();
+
+
 }
 
 void WCSimPhysicsListFactory::SetCuts()
@@ -113,14 +118,19 @@ void WCSimPhysicsListFactory::SetCuts()
       G4cout << "WCSimPhysicsListFactory::SetCuts:";
       G4cout << "CutLength : " << G4BestUnit(defaultCutValue,"Length") << G4endl;
   }
-
+  G4cout<<"**************************************HELLO WORLD********************************:)"<<G4endl;
+  // std::cout<<"**************************************HELLO WORLD********************************:)"<<std::endl;
   // set cut values for gamma at first and for e- second and next for e+,
   // because some processes for e+/e- need cut values for gamma
   //
-  SetCutValue(defaultCutValue, "gamma");
-  SetCutValue(defaultCutValue, "e-");
-  SetCutValue(defaultCutValue, "e+");
-
+  SetCutValue(1.0e21*mm, "gamma");
+  SetCutValue(1.0e21*mm, "e-");
+  SetCutValue(1.0e21*mm, "e+");
+  // SetCutValue(defaultCutValue, "gamma");
+  // SetCutValue(defaultCutValue, "e-");
+  // SetCutValue(defaultCutValue, "e+");
+ 
+  //DumpCutValuesTable();
   if (verboseLevel>0) DumpCutValuesTable();
 
 }
@@ -158,6 +168,8 @@ void WCSimPhysicsListFactory::InitializeList(){
   } else {
     G4cout << "Physics list " << PhysicsListName << " is not understood" << G4endl;
   }
+  // G4cout << "RegisterPhysics: ElectromagneticPhysics" << G4endl;
+  // RegisterPhysics( new G4EmStandardPhysics );
 } 
 
 void WCSimPhysicsListFactory::SaveOptionsToOutput(WCSimRootOptions * wcopt)
