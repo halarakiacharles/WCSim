@@ -1023,7 +1023,7 @@ G4int WCSimEventAction::WCSimEventFindStartingVolume(G4ThreeVector vtx)
   // Get volume of starting point (see GEANT4 FAQ)
 
   G4int vtxvol = -1;
-
+  return 0;
   G4Navigator* tmpNavigator =
     G4TransportationManager::GetTransportationManager()->
     GetNavigatorForTracking();
@@ -1311,9 +1311,10 @@ void WCSimEventAction::FillRootEvent(G4int event_id,
 	    G4ThreeVector Start  = aa->GetPosition();
 
 	    G4String stopVolumeName = trj->GetStoppingVolume()->GetName();
-	    G4int    stopvol     = WCSimEventFindStoppingVolume(stopVolumeName);
-	    G4int    startvol    = WCSimEventFindStartingVolume(Start);
-
+	    // G4int    stopvol     = WCSimEventFindStoppingVolume(stopVolumeName);
+	    //	    G4int    startvol    = WCSimEventFindStartingVolume(Start);
+	    G4int    stopvol     = -999;
+	    G4int    startvol    = -999;
 	    G4double ttime = trj->GetGlobalTime();
 
 	    G4int parentType;
@@ -1877,8 +1878,8 @@ void WCSimEventAction::FillRootEventHybrid(G4int event_id,
 	    G4ThreeVector Start  = aa->GetPosition();
 
 	    G4String stopVolumeName = trj->GetStoppingVolume()->GetName();
-	    G4int    stopvol     = WCSimEventFindStoppingVolume(stopVolumeName);
-	    G4int    startvol    = WCSimEventFindStartingVolume(Start);
+	    G4int    stopvol     = -999;//WCSimEventFindStoppingVolume(stopVolumeName);
+	    G4int    startvol    = -999;// WCSimEventFindStartingVolume(Start);
 
 	    G4double ttime = trj->GetGlobalTime();
 
